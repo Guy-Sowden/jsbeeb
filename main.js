@@ -46,7 +46,54 @@ require(['jquery', 'underscore', 'utils', 'video', 'soundchip', 'ddnoise', 'debu
         var stepEmuWhenPaused = false;
         var audioFilterFreq = 7000;
         var audioFilterQ = 5;
-
+        
+        if (emulatorSettings){
+            for(let i of Object.getOwnPropertyNames(emulatorSettings)){
+                switch (i){
+                    case "autoboot":
+                        needsAutoboot = emulatorSettings[i];
+                        break;
+                    case "autochain":
+                        needsAutoboot = emulatorSettings[i];
+                        break;
+                    case "autorun":
+                        needsAutoboot = emulatorSettings[i];
+                        break;
+                    case "keyLayout":
+                        keyLayout = ( emulatorSettings[i] + "").toLowerCase();
+                        break;
+                    case "disc":
+                    case "disc1":
+                        discImage = emulatorSettings[i];
+                        break;
+                    case "rom":
+                        extraRoms.push(emulatorSettings[i]);
+                        break;
+                    case "disc2":
+                        secondDiscImage = emulatorSettings[i];
+                        break;
+                    case "embed":
+                        if(emulatorSettings[i] == true){
+                            $(".embed-hide").hide();
+                            $("#about").append(" jsbeeb");
+                        }
+                        break;
+                    case "fasttape":
+                        fastTape = emulatorSettings[i];
+                        break;
+                    case "noseek":
+                        noSeek = emulatorSettings[i];
+                        break;
+                    case "audiofilterfreq":
+                        audioFilterFreq = Number(emulatorSettings[i]);
+                        break;
+                    case "audiofilterq":
+                        audioFilterQ = Number(emulatorSettings[i]);
+                        break;
+                }
+            }
+        }
+        
         if (queryString) {
             if (queryString[queryString.length - 1] === '/')  // workaround for shonky python web server
                 queryString = queryString.substring(0, queryString.length - 1);
